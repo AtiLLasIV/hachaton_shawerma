@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import ReactSlider from "react-slider"; // [добавлено] импорт ползунка
+import "./Slider.css"; //
 import "./FiltersForm.css";
 
 export function FiltersForm({ onSubmit }) {
   const [position, setPosition] = useState("");
   const [region, setRegion] = useState("");
-  const [experience, setExperience] = useState("");
+  const [experienceRange, setExperienceRange] = useState([0, 20]); // [изменено] диапазон вместо одного числа
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
   const [hasCar, setHasCar] = useState(false);
@@ -23,7 +25,8 @@ export function FiltersForm({ onSubmit }) {
     onSubmit({
       position,
       region,
-      experience: experience ? parseFloat(experience) : null,
+      experience_from: experienceRange[0], // [добавлено]
+      experience_to: experienceRange[1] === 20 ? 99 : experienceRange[1], // здесь не забыть про бэк
       gender,
       age: age ? parseInt(age) : null,
       hasCar,
@@ -58,16 +61,34 @@ export function FiltersForm({ onSubmit }) {
       </div>
 
       <div className="form-section">
-        <label>
-          Опыт (лет):
-        </label>
-        <input
-          type="number"
-          step="0.5"
-          min="0"
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
-          placeholder="1,5"
+        <label>Опыт (лет):</label>
+
+        {/* верхняя подпись (0 и 20+) */}
+        <div style={{display: "flex", justifyContent: "space-between", fontSize: "0.85rem", color: "#888"}}>
+          <span>0</span>
+          <span>20+</span>
+        </div>
+
+        <ReactSlider
+          className="horizontal-slider"
+          thumbClassName="thumb"
+          // trackClassName={(i) => `track-${i}`
+          trackClassName={(i) => `track track-${i}`}
+          min={0}
+          max={20}
+          step={0.5}
+          value={experienceRange}
+          onChange={setExperienceRange}
+          pearling
+          minDistance={0.5}
+          withTracks={true}
+          renderThumb={(props, state) => (
+            <div {...props}>
+              <div className="thumb-label">
+                {state.valueNow === 20 ? "20+" : state.valueNow}
+              </div>
+            </div>
+          )}
         />
       </div>
 
@@ -106,9 +127,12 @@ export function FiltersForm({ onSubmit }) {
 
       <div className="form-section">
         <label>Источники:</label>
-        <label><input type="checkbox" checked={sources.includes("hh")} onChange={() => handleCheckboxChange("hh")} /> hh.ru</label>
-        <label><input type="checkbox" checked={sources.includes("avito")} onChange={() => handleCheckboxChange("avito")} /> Avito</label>
-        <label><input type="checkbox" checked={sources.includes("tg")} onChange={() => handleCheckboxChange("tg")} /> Telegram</label>
+        <label><input type="checkbox" checked={sources.includes("hh")}
+                      onChange={() => handleCheckboxChange("hh")}/> hh.ru</label>
+        <label><input type="checkbox" checked={sources.includes("avito")}
+                      onChange={() => handleCheckboxChange("avito")}/> Avito</label>
+        <label><input type="checkbox" checked={sources.includes("tg")}
+                      onChange={() => handleCheckboxChange("tg")}/> Telegram</label>
       </div>
 
       <button type="submit">Мониторить</button>

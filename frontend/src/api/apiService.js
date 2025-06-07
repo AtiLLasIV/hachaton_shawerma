@@ -8,3 +8,10 @@ export async function runMonitoring(params) {
     max: 200000
   };
 }
+
+function normalizeExperience(expFrom, expTo) {
+  return {
+    experience_from: expFrom,
+    experience_to: expTo === null ? 99 : expTo
+  }
+}
