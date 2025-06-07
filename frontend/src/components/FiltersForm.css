@@ -28,6 +28,18 @@
   border-radius: 6px;
 }
 
+/* Контейнер, в котором слайдер + подписи */
+.slider-section {
+  margin-bottom: 1rem;
+}
+
+/* Возраст — от и до в одной строке */
+.age-inputs-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 /* Чекбоксы (для источников и авто) */
 .form-section input[type="checkbox"] {
   margin-right: 0.5rem;
