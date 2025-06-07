@@ -1,0 +1,74 @@
+/* Основной контейнер формы */
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #fdfdfd;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Каждая секция с полем */
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+.form-section label {
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+.form-section input,
+.form-section select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Контейнер, в котором слайдер + подписи */
+.slider-section {
+  margin-bottom: 1rem;
+}
+
+/* Возраст — от и до в одной строке */
+.age-inputs-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Чекбоксы (для источников и авто) */
+.form-section input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Кнопка отправки */
+button[type="submit"] {
+  padding: 0.75rem 1.25rem;
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+button[type="submit"]:hover {
+  background-color: #357bd8;
+}
+
+
+
+/*------------ Убираем стрелки у числовых полей -----------------------------*/
+/*input[type=number]::-webkit-outer-spin-button,*/
+/*input[type=number]::-webkit-inner-spin-button {*/
+/*  -webkit-appearance: none;*/
+/*  margin: 0;*/
+/*}*/
+/*input[type=number] {*/
+/*  -moz-appearance: textfield;*/
+/*}*/
