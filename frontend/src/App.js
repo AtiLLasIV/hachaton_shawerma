@@ -1,7 +1,7 @@
 import React from 'react';
-import ResultsPage from './pages/SummaryPage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MonitorPage } from "./pages/MonitorPage";
+import ResultPage from "./pages/SummaryPage";
 
 function App() {
   return (
