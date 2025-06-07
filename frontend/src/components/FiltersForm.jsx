@@ -37,6 +37,7 @@ export function FiltersForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="filters-form">
+      <h2 className="page-title">Мониторинг вакансий</h2>
       <div className="form-section">
         <label>
           Должность:
@@ -98,6 +99,7 @@ export function FiltersForm({ onSubmit }) {
           Пол:
         </label>
         <select value={gender} onChange={(e) => setGender(e.target.value)}>
+          <option value="">Не указано</option>
           <option value="male">Мужской</option>
           <option value="female">Женский</option>
         </select>
@@ -136,12 +138,18 @@ export function FiltersForm({ onSubmit }) {
 
       <div className="form-section">
         <label>Источники:</label>
-        <label><input type="checkbox" checked={sources.includes("hh")}
-                      onChange={() => handleCheckboxChange("hh")}/> hh.ru</label>
-        <label><input type="checkbox" checked={sources.includes("avito")}
-                      onChange={() => handleCheckboxChange("avito")}/> Avito</label>
-        <label><input type="checkbox" checked={sources.includes("tg")}
-                      onChange={() => handleCheckboxChange("tg")}/> Telegram</label>
+        <div className="sources-toggle">
+          {["hh", "superjob"].map(source => (
+            <button
+              type="button"
+              key={source}
+              className={`source-btn ${sources.includes(source) ? "active" : ""}`}
+              onClick={() => handleCheckboxChange(source)}
+            >
+              {source === "hh" ? "hh.ru" : "SuperJob"}
+            </button>
+          ))}
+        </div>
       </div>
 
       <button type="submit">Мониторить</button>

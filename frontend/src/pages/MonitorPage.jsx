@@ -1,28 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { FiltersForm } from "../components/FiltersForm";
 import { runMonitoring } from "../api/apiService";
-// import { SummaryBlock } from "../components/SummaryBlock"; // будет позже
+import { useNavigate } from "react-router-dom";
 
 export function MonitorPage() {
-  const [result, setResult] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (params) => {
-    const data = await runMonitoring(params);
-    setResult(data);
+    try {
+      const data = await runMonitoring(params);
+      navigate("/summary", { state: { result: data } });
+    } catch (e) {
+      console.error("Ошибка при мониторинге", e);
+    }
   };
 
   return (
     <div>
-      <h2>Мониторинг вакансий</h2>
-      <FiltersForm onSubmit={handleSubmit} />
-
-      {result && (
-        <pre>
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
-
-      {/* {result && <SummaryBlock {...result} />} */}
+      <FiltersForm onSubmit={handleSubmit}/>
     </div>
   );
 }
