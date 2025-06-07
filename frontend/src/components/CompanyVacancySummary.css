@@ -1,0 +1,66 @@
+.company-summary-list {
+  margin-top: 48px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.company-summary-title {
+  font-size: 24px;
+  color: #2D3748;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.company-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+}
+
+.company-card {
+  background: #f3faf9;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(48, 150, 137, 0.06);
+  padding: 28px 32px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.company-card:hover {
+  box-shadow: 0 6px 24px rgba(48, 150, 137, 0.13);
+  transform: translateY(-2px);
+}
+
+.company-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.company-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a3c34;
+}
+
+.company-positions {
+  margin-bottom: 12px;
+}
+
+.company-position {
+  font-size: 16px;
+  color: #2D3748;
+  margin-bottom: 2px;
+}
+
+.company-salary {
+  margin-top: auto;
+  font-size: 17px;
+  color: #309689;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+} 
