@@ -1,0 +1,57 @@
+.summary-container {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  font-family: 'Figtree', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 32px;
+  color: #2D3748;
+  font-weight: 600;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.summary-card {
+  background: #F5F7FA;
+  padding: 24px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #4A5568;
+}
+
+.value {
+  font-size: 24px;
+  color: #2D3748;
+  font-weight: 600;
+}
+
+.summary-comment {
+  font-style: italic;
+  color: #718096;
+  font-size: 14px;
+  margin-top: 8px;
+}
