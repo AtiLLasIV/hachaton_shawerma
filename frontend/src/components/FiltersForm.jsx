@@ -5,7 +5,7 @@ import "./FiltersForm.css";
 
 export function FiltersForm({ onSubmit }) {
   const [position, setPosition] = useState("");
-  const [region, setRegion] = useState("");
+  const [city, setCity] = useState("");
   const [experienceRange, setExperienceRange] = useState([0, 20]); // [изменено] диапазон вместо одного числа
   const [gender, setGender] = useState("");
   const [age, setAge] = useState({ from: "", to: "" });
@@ -24,10 +24,10 @@ export function FiltersForm({ onSubmit }) {
     e.preventDefault();
     onSubmit({
       position,
-      region,
+      city,
       experience_from: experienceRange[0], // [добавлено]
       experience_to: experienceRange[1] === 20 ? 99 : experienceRange[1], // здесь не забыть про бэк
-      gender,
+      // gender,
       age_from: age.from ? parseInt(age.from) : null,
       age_to: age.to ? parseInt(age.to) : null,
       hasCar,
@@ -56,8 +56,8 @@ export function FiltersForm({ onSubmit }) {
         </label>
         <input
           type="text"
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
           placeholder="Москва"
         />
       </div>
