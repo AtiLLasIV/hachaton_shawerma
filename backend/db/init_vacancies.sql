@@ -4,8 +4,7 @@ CREATE TABLE vacancies (
     position VARCHAR(128),
     city VARCHAR(64),
     experience_years INT,
-    salary_min_net INT,
-    salary_max_net INT,
+    salary INT,
     currency VARCHAR(8),
     posted_at TIMESTAMP,
 ); 
