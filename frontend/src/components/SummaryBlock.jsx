@@ -32,3 +32,4 @@ export function SummaryBlock({ count, average, median, min, max, avgRange }) {
     </div>
   );
 }
+

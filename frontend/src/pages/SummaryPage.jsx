@@ -9,7 +9,9 @@ export default function SummaryPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getVacancies();
+      // Получаем параметры фильтрации из localStorage
+      const searchParams = JSON.parse(localStorage.getItem('searchParams') || '{}');
+      const data = await getVacancies(searchParams);
       setVacancies(data);
 
       const salaries = data

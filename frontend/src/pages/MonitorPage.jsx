@@ -8,6 +8,8 @@ export function MonitorPage() {
 
   const handleSubmit = async (params) => {
     try {
+      // Сохраняем параметры фильтрации в localStorage
+      localStorage.setItem('searchParams', JSON.stringify(params));
       navigate("/summary");
     } catch (e) {
       console.error("Ошибка при мониторинге", e);
