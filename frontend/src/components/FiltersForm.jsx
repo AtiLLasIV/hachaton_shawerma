@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactSlider from "react-slider"; // [добавлено] импорт ползунка
+import ReactSlider from "react-slider";
 import "./Slider.css"; //
 import "./FiltersForm.css";
 

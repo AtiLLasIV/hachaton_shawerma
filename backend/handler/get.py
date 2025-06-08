@@ -35,6 +35,8 @@ def get_vacancies(filters):
         if key in allowed_fields:
             if key == "position":
                 value = get_cluster_name(value)
+            if key == "region":
+                key = "city"
             where.append(f"{key} = %s")
             values.append(value)
     where_clause = " AND ".join(where) if where else "1=1"
