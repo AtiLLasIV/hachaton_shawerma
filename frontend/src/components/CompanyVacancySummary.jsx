@@ -2,26 +2,32 @@ import React from 'react';
 import './CompanyVacancySummary.css';
 
 function getCompanyStats(vacancies) {
-  // Группировка по компании
   const companies = {};
+
   vacancies.forEach(vac => {
     const company = vac.company || 'Без названия';
-    if (!companies[company]) companies[company] = [];
-    companies[company].push(vac);
+    const position = vac.position || 'Без должности';
+
+    if (!companies[company]) companies[company] = { totalSalary: 0, count: 0, positions: {} };
+
+    companies[company].totalSalary += vac.salary || 0;
+    companies[company].count += 1;
+
+    if (!companies[company].positions[position]) {
+      companies[company].positions[position] = 0;
+    }
+    companies[company].positions[position] += 1;
   });
-  // Формируем массив для рендера
-  return Object.entries(companies).map(([company, vacs]) => {
-    // Средняя зарплата по всем вакансиям компании
-    const avgSalary = Math.round(
-      vacs
-        .map(v => v.salary)
-        .filter(Boolean)
-        .reduce((a, b) => a + b, 0) / vacs.length
+
+  return Object.entries(companies).map(([company, data]) => {
+    const avgSalary = Math.round(data.totalSalary / data.count);
+    const positionStats = Object.entries(data.positions).map(
+      ([position, count]) => ({ position, count })
     );
     return {
       company,
       avgSalary,
-      positions: vacs.map(v => v.position)
+      positionStats
     };
   });
 }
@@ -32,20 +38,24 @@ export function CompanyVacancySummary({ vacancies }) {
     <div className="company-summary-list">
       <h3 className="company-summary-title">Сводка по компаниям</h3>
       <div className="company-summary-grid">
-        {stats.map(({ company, avgSalary, positions }) => (
+        {stats.slice(0, 10).map(({ company, avgSalary, positionStats }) => (
           <div className="company-card" key={company}>
             <div className="company-card-header">
               <span className="company-name">{company}</span>
             </div>
             <div className="company-positions">
-              {positions.map((pos, idx) => (
-                <div className="company-position" key={idx}>{pos}</div>
+              {positionStats.map(({ position, count }, idx) => (
+                <div className="company-position" key={idx}>
+                  {position} — {count} вакансии{count === 1 ? 'я' : count < 5 ? 'и' : ''}
+                </div>
               ))}
             </div>
-            <div className="company-salary">Средняя зарплата: <b>{avgSalary.toLocaleString()} ₽</b></div>
+            <div className="company-salary">
+              Средняя зарплата: <b>{avgSalary.toLocaleString()} ₽</b>
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
-} 
+}
