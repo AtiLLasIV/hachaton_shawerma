@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SummaryBlock } from '../components/SummaryBlock';
 import { CompanyVacancySummary } from '../components/CompanyVacancySummary';
-import { getMockVacancies } from '../api/apiService';
+import { getVacancies } from '../api/apiService';
 
 export default function SummaryPage() {
   const [vacancies, setVacancies] = useState([]);
@@ -9,7 +9,7 @@ export default function SummaryPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getMockVacancies();
+      const data = await getVacancies();
       setVacancies(data);
 
       const salaries = data
