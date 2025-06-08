@@ -29,6 +29,7 @@ def get_vacancies(filters):
     where = []
     values = []
     allowed_fields = {'company', 'position', 'city', 'experience_years', 'salary', 'currency', 'posted_at'}
+    print(filters)
     for key, value in filters.items():
         print(key, value)
         if key in allowed_fields:
