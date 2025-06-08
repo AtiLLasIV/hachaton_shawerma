@@ -13,7 +13,7 @@ export default function SummaryPage() {
       setVacancies(data);
 
       const salaries = data
-        .map(v => normalizeSalary(v.salary_from, v.salary_to))
+        .map(v => v.salary)
         .filter(Boolean)
         .sort((a, b) => a - b);
 
@@ -24,9 +24,6 @@ export default function SummaryPage() {
       const median = salaries[Math.floor(count / 2)];
       const min = salaries[0];
       const max = salaries[count - 1];
-      const avgRange = salaries.filter((_, i) => data[i]?.salary_from && data[i]?.salary_to)
-        .map((v, i) => normalizeSalary(data[i].salary_from, data[i].salary_to))
-        .reduce((a, b) => a + b, 0) / count;
 
       setSummary({
         count,
@@ -34,7 +31,7 @@ export default function SummaryPage() {
         median,
         min,
         max,
-        avgRange: Math.round(avgRange),
+        avgRange: avg, 
       });
     }
 
@@ -47,11 +44,4 @@ export default function SummaryPage() {
       <CompanyVacancySummary vacancies={vacancies} />
     </div>
   );
-}
-
-function normalizeSalary(from, to) {
-  if (from && to) return (from + to) / 2;
-  if (from) return from * 1.15;
-  if (to) return to * 0.85;
-  return null;
 }

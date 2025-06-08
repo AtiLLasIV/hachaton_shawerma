@@ -11,10 +11,10 @@ function getCompanyStats(vacancies) {
   });
   // Формируем массив для рендера
   return Object.entries(companies).map(([company, vacs]) => {
-    // Средняя вилка по всем вакансиям компании
+    // Средняя зарплата по всем вакансиям компании
     const avgSalary = Math.round(
       vacs
-        .map(v => normalizeSalary(v.salary_from, v.salary_to))
+        .map(v => v.salary)
         .filter(Boolean)
         .reduce((a, b) => a + b, 0) / vacs.length
     );
@@ -24,13 +24,6 @@ function getCompanyStats(vacancies) {
       positions: vacs.map(v => v.position)
     };
   });
-}
-
-function normalizeSalary(from, to) {
-  if (from && to) return (from + to) / 2;
-  if (from) return from * 1.15;
-  if (to) return to * 0.85;
-  return null;
 }
 
 export function CompanyVacancySummary({ vacancies }) {
@@ -49,7 +42,7 @@ export function CompanyVacancySummary({ vacancies }) {
                 <div className="company-position" key={idx}>{pos}</div>
               ))}
             </div>
-            <div className="company-salary">Средняя вилка: <b>{avgSalary.toLocaleString()} ₽</b></div>
+            <div className="company-salary">Средняя зарплата: <b>{avgSalary.toLocaleString()} ₽</b></div>
           </div>
         ))}
       </div>

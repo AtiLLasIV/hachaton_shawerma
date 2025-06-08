@@ -1,58 +1,28 @@
-export async function getMockVacancies() {
-  return [
-    {
-      company: 'РоссияАвто',
-      position: 'Курьер',
-      salary_from: 40000,
-      salary_to: 42000,
-      region: 'Москва',
-      employment_type: 'Full time',
-      posted_at: '2024-06-10T10:00:00Z',
-      company_logo: 'https://randomuser.me/api/portraits/men/32.jpg',
-      source: 'hh',
-    },
-    {
-      company: 'Самокат',
-      position: 'Курьер на велосипеде',
-      salary_to: 193000,
-      region: 'Москва',
-      employment_type: 'Частичная занятость',
-      posted_at: '2024-06-09T09:00:00Z',
-      company_logo: 'https://randomuser.me/api/portraits/men/33.jpg',
-      source: 'avito',
-    },
-    {
-      company: 'Яндекс Еда',
-      position: 'Курьер',
-      salary_from: 70000,
-      salary_to: 90000,
-      region: 'Санкт-Петербург',
-      employment_type: 'Full time',
-      posted_at: '2024-06-08T12:00:00Z',
-      company_logo: 'https://randomuser.me/api/portraits/women/44.jpg',
-      source: 'tg',
-    },
-    {
-      company: 'Самокат',
-      position: 'Курьер на авто',
-      salary_from: 100000,
-      salary_to: 130000,
-      region: 'Москва',
-      employment_type: 'Full time',
-      posted_at: '2024-06-06T11:00:00Z',
-      company_logo: 'https://randomuser.me/api/portraits/men/33.jpg',
-      source: 'avito',
-    },
-  ];
-}
+const API_URL = "http://127.0.0.1:5001";
 
-export async function runMonitoring(params) {
-  console.log("Mock request with:", params);
-  await new Promise((r) => setTimeout(r, 500)); // задержка
-  return {
-    count: 37,
-    median: 120000,
-    min: 80000,
-    max: 200000
-  };
-}
+
+export async function getMockVacancies() {
+    const res = await fetch("http://127.0.0.1:5001/mock_vacancies");
+    return res.json();
+  }
+
+// export async function getVacancies(filters = {}) {
+//   const params = new URLSearchParams(filters).toString();
+//   const res = await fetch(`${API_URL}/vacancies?${params}`);
+//   return res.json();
+// }
+
+// export async function addVacancy(data) {
+//   const res = await fetch(`${API_URL}/vacancy`, {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(data)
+//   });
+//   return res.json();
+// }
+
+// export async function getAggregates(filters = {}) {
+//   const params = new URLSearchParams(filters).toString();
+//   const res = await fetch(`${API_URL}/vacancies/aggregate?${params}`);
+//   return res.json();
+// }
