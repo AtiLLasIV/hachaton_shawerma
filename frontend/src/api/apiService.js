@@ -1,8 +1,9 @@
-const API_URL = "http://127.0.0.1:5001";
-
+// const API_URL = "http://127.0.0.1:5001";
+const API_URL = "http://10.10.165.2:5001"
 
 export async function getMockVacancies() {
-    const res = await fetch("http://127.0.0.1:5001/mock_vacancies");
+    // const res = await fetch("http://127.0.0.1:5001/mock_vacancies");
+    const res = await fetch("http://10.10.165.2:5001/mock_vacancies");
     return res.json();
   }
 
