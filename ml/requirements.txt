@@ -9,3 +9,7 @@ scikit-learn>=1.0.0
 
 # Прогресс-бар (опционально, устанавливается вместе с sentence-transformers)
 tqdm>=4.64.0
+
+requests>=2.31.0
+
+joblib
