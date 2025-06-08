@@ -30,16 +30,25 @@ def get_vacancies(filters):
     values = []
     allowed_fields = {'company', 'position', 'city', 'experience_years', 'salary', 'currency', 'posted_at'}
     print(filters)
+
+    exp_to = 1000
+    exp_from = 0
     for key, value in filters.items():
-        print(key, value)
+        if key == "experience_from":
+            exp_from = value
+        if key == "experience_to":
+            exp_to = value
+        if key == "region":
+            key = "city"
         if key in allowed_fields:
             if key == "position":
                 value = get_cluster_name(value)
-            if key == "region":
-                key = "city"
             where.append(f"{key} = %s")
             values.append(value)
+
+    where.append(f"(experience_years BETWEEN {exp_from} AND {exp_to} )")
     where_clause = " AND ".join(where) if where else "1=1"
+
     cur.execute(f"SELECT * FROM vacancies WHERE {where_clause}", values)
     rows = cur.fetchall()
     columns = [desc[0] for desc in cur.description]
