@@ -23,44 +23,44 @@ def aggregate_vacancies():
     result = get_aggregates(filters)
     return jsonify(result) 
 
-@bp.route("/mock_vacancies", methods=["GET"])
-def mock_vacancies():
-    data = [
-        {
-            "company": "РоссияАвто",
-            "position": "Курьер",
-            "salary": 41000,
-            "city": "Москва",
-            "experience_years": 0,
-            "currency": "RUB",
-            "posted_at": "2024-06-10T10:00:00Z",
-        },
-        {
-            "company": "Самокат",
-            "position": "Курьер на велосипеде",
-            "salary": 193000,
-            "city": "Москва",
-            "experience_years": 0,
-            "currency": "RUB",
-            "posted_at": "2024-06-09T09:00:00Z",
-        },
-        {
-            "company": "Яндекс Еда",
-            "position": "Курьер",
-            "salary": 70000,
-            "city": "Санкт-Петербург",
-            "experience_years": 0,
-            "currency": "RUB",
-            "posted_at": "2024-06-08T12:00:00Z",
-        },
-        {
-            "company": "Самокат",
-            "position": "Курьер на авто",
-            "salary": 100000,
-            "city": "Москва",
-            "experience_years": 0,
-            "currency": "RUB",
-            "posted_at": "2024-06-06T11:00:00Z",
-        },
-    ]
+# @bp.route("/mock_vacancies", methods=["GET"])
+# def mock_vacancies():
+#     data = [
+#         {
+#             "company": "РоссияАвто",
+#             "position": "Курьер",
+#             "salary": 41000,
+#             "city": "Москва",
+#             "experience_years": 0,
+#             "currency": "RUB",
+#             "posted_at": "2024-06-10T10:00:00Z",
+#         },
+#         {
+#             "company": "Самокат",
+#             "position": "Курьер на велосипеде",
+#             "salary": 193000,
+#             "city": "Москва",
+#             "experience_years": 0,
+#             "currency": "RUB",
+#             "posted_at": "2024-06-09T09:00:00Z",
+#         },
+#         {
+#             "company": "Яндекс Еда",
+#             "position": "Курьер",
+#             "salary": 70000,
+#             "city": "Санкт-Петербург",
+#             "experience_years": 0,
+#             "currency": "RUB",
+#             "posted_at": "2024-06-08T12:00:00Z",
+#         },
+#         {
+#             "company": "Самокат",
+#             "position": "Курьер на авто",
+#             "salary": 100000,
+#             "city": "Москва",
+#             "experience_years": 0,
+#             "currency": "RUB",
+#             "posted_at": "2024-06-06T11:00:00Z",
+#         },
+#     ]
     return jsonify(data)
