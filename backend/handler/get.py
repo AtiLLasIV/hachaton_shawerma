@@ -1,4 +1,5 @@
 from db.connect import get_db_connection
+from psycopg2 import sql
 
 from sentence_transformers import SentenceTransformer
 import joblib
@@ -26,56 +27,52 @@ def get_cluster_name(title: str) -> str:
 def get_vacancies(filters):
     conn = get_db_connection()
     cur = conn.cursor()
-    where = []
+
+    conditions = []
     values = []
     allowed_fields = {'company', 'position', 'city', 'experience_years', 'salary', 'currency', 'posted_at'}
-    print(filters)
 
     exp_to = 1000
     exp_from = 0
+
     for key, value in filters.items():
         if key == "experience_from":
             exp_from = value
-        if key == "experience_to":
+        elif key == "experience_to":
             exp_to = value
-        if key == "region":
+        elif key == "region":
             key = "city"
+
         if key in allowed_fields:
             if key == "position":
                 value = get_cluster_name(value)
-            where.append(f"{key} = %s")
+            conditions.append(sql.SQL("{} = %s").format(sql.Identifier(key)))
             values.append(value)
 
-    where.append(f"(experience_years BETWEEN {exp_from} AND {exp_to} )")
-    where_clause = " AND ".join(where) if where else "1=1"
+    # Добавляем условие по опыту, если указаны границы
+    if 'experience_from' in filters or 'experience_to' in filters:
+        conditions.append(sql.SQL("experience_years BETWEEN %s AND %s"))
+        values.extend([exp_from, exp_to])
 
-    cur.execute(f"SELECT * FROM vacancies WHERE {where_clause}", values)
-    rows = cur.fetchall()
-    columns = [desc[0] for desc in cur.description]
-    cur.close()
-    conn.close()
-    return [dict(zip(columns, row)) for row in rows] 
+    # Формируем базовый запрос
+    query = sql.SQL("SELECT * FROM vacancies")
 
+    # Добавляем условия, если они есть
+    if conditions:
+        query = sql.SQL("{} WHERE {}").format(
+            query,
+            sql.SQL(" AND ").join(conditions)
+        )
 
-# МОК ДАННЫЕ ДЛЯ ТЕСТА СЕРВЕРА
+    print(query.as_string(conn), values)
 
-# def get_vacancies(filters):
-#     # Возвращаем список фиктивных вакансий
-#     return [
-#         {
-#             "id": 1,
-#             "company": "Самокат",
-#             "position": "Курьер",
-#             "city": "Москва",
-#             "salary_min_net": 50000,
-#             "salary_max_net": 70000
-#         },
-#         {
-#             "id": 2,
-#             "company": "Яндекс Еда",
-#             "position": "Курьер",
-#             "city": "Санкт-Петербург",
-#             "salary_min_net": 60000,
-#             "salary_max_net": 80000
-#         }
-#     ]
+    try:
+        cur.execute(query, tuple(values))
+        rows = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        return [dict(zip(columns, row)) for row in rows]
+    finally:
+        cur.close()
+        conn.close()
+
+    return [dict(zip(columns, row)) for row in rows]
