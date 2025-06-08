@@ -30,6 +30,7 @@ def get_vacancies(filters):
     values = []
     allowed_fields = {'company', 'position', 'city', 'experience_years', 'salary', 'currency', 'posted_at'}
     for key, value in filters.items():
+        print(key, value)
         if key in allowed_fields:
             if key == "position":
                 value = get_cluster_name(value)
