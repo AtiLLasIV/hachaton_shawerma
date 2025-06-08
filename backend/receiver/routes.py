@@ -17,11 +17,11 @@ def list_vacancies():
     result = get_vacancies(filters)
     return jsonify(result)
 
-@bp.route("/vacancies/aggregate", methods=["GET"])
-def aggregate_vacancies():
-    filters = request.args.to_dict()
-    result = get_aggregates(filters)
-    return jsonify(result) 
+# @bp.route("/vacancies/aggregate", methods=["GET"])
+# def aggregate_vacancies():
+#     filters = request.args.to_dict()
+#     result = get_aggregates(filters)
+#     return jsonify(result) 
 
 # @bp.route("/mock_vacancies", methods=["GET"])
 # def mock_vacancies():
