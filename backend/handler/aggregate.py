@@ -11,10 +11,10 @@ def get_aggregates(filters):
     where_clause = " AND ".join(where) if where else "1=1"
     cur.execute(f'''
         SELECT
-            percentile_cont(0.5) WITHIN GROUP (ORDER BY salary_min_net) AS median,
-            percentile_cont(0.25) WITHIN GROUP (ORDER BY salary_min_net) AS q1,
-            percentile_cont(0.75) WITHIN GROUP (ORDER BY salary_min_net) AS q3,
-            avg(salary_min_net) as avg_salary
+            percentile_cont(0.5) WITHIN GROUP (ORDER BY salary) AS median,
+            percentile_cont(0.25) WITHIN GROUP (ORDER BY salary) AS q1,
+            percentile_cont(0.75) WITHIN GROUP (ORDER BY salary) AS q3,
+            avg(salary) as avg_salary
         FROM vacancies
         WHERE {where_clause}
     ''', values)

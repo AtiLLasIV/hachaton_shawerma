@@ -4,9 +4,17 @@ def insert_vacancy(data):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(
-        """INSERT INTO vacancies (company, position, city, salary_min_net, salary_max_net)
-        VALUES (%s, %s, %s, %s, %s) RETURNING id""",
-        (data.get('company'), data.get('position'), data.get('city'), data.get('salary_min_net'), data.get('salary_max_net'))
+        """INSERT INTO vacancies (company, position, city, experience_years, salary, currency, posted_at)
+        VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id""",
+        (
+            data.get('company'),
+            data.get('position'),
+            data.get('city'),
+            data.get('experience_years'),
+            data.get('salary'),
+            data.get('currency'),
+            data.get('posted_at')
+        )
     )
     conn.commit()
     new_id = cur.fetchone()[0]
