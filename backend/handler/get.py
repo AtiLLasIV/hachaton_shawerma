@@ -64,7 +64,7 @@ def get_vacancies(filters):
             sql.SQL(" AND ").join(conditions)
         )
 
-    query = sql.SQL("{} ORDER BY company ASC").format(query)
+    query = sql.SQL("{} ORDER BY company DESC").format(query)
 
     print(query.as_string(conn), values)
 
